@@ -8,13 +8,36 @@ const initialForm ={
 }
 
 
-const CrudForm = () => {
+const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
  const[form, setForm]=useState(initialForm)
-  const handleChange = (e) => {};
 
-  const handleSumbit = (e) => {};
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+    [e.target.name]:e.target.value,
+    });
+  };
 
-  const handleReset = (e) => {};
+  const handleSumbit = (e) => {
+    e.preventDefault(); //para que no se autoprocese el formulario
+
+    if(!form.name || !form.status){
+      alert("Datos incompletos"); //puede usarse required
+    return;
+    }
+    if(form.id === null){
+      createData(form)
+    }else{
+      updateData(form)
+    }
+    handleReset();
+  };
+
+  const handleReset = (e)=>{
+    setForm(initialForm);
+    setDataToEdit(null);
+  }
+
   return (
     <div>
       <h3>Agregar</h3>
