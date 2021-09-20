@@ -4,24 +4,7 @@ import CrudTable from './CrudTable'
 
 
 const initialDb= [
-    {
-        "id": 183,
-        "name": "Johnny Depp",
-        "status": "Alive",
-        "species": "Human"
-    },
-    {
-        "id": 1,
-        "name": "Rick Sanchez",
-        "status": "Alive",
-        "species": "Human", 
-    },
-    {
-        "id": 2,
-        "name": "Morty Smith",
-        "status": "Alive",
-        "species": "Human", 
-    }
+    
 ]
 
 const CrudApp = () => {
@@ -31,7 +14,12 @@ const CrudApp = () => {
 
 
     // Crear nuevo registro en la base de datos
-    const createData=(data)=>{}
+    const createData=(data)=>{
+        //hay que crear un valor para data.id
+        data.id = Date.now
+        // console.log(data) //trae el nuevo elemento
+        setDb([...db, data])
+    }
 
     // Actualiza
     const updateData=(data)=>{}
