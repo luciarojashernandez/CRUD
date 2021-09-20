@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "id": 183,
+      "name": "Johnny Depp",
+      "status": "Alive",
+      "species": "Human"
+    },
+    {
+      "id": 1,
+      "name": "Rick Sanchez",
+      "status": "Alive",
+      "species": "Human"
+    },
+    {
+      "id": 2,
+      "name": "Morty Smith",
+      "status": "Alive",
+      "species": "Human"
+    }
+  ]
+}
