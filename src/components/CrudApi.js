@@ -1,12 +1,32 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import { helpHttp } from "../helpers/helpHttp";
 import CrudForm from "./CrudForm";
 import CrudTable from "./CrudTable";
-
-
+import Loader from "./Loader";
+import Message from "./Message";
 
 const CrudApi = () => {
-  const [db, setDb] = useState([]);
-  const [dataToEdit, setDataToEdit] = useState(null); //cuando está null se va a hacer una inserción, true= actualización
+  const [db, setDb] = useState(null);
+  const [dataToEdit, setDataToEdit] = useState(null); //cuando está null se va a hacer una inserción, true= actualización   
+  const [error, setError] = useState(null); 
+  const [loading, setLoading]=useState(false);
+
+  let api = helpHttp();
+  let url = "http://localhost:5000/results";
+
+  useEffect(() => {
+    setLoading(true); //antes de hacer la petición actualiza a true
+    api.get(url).then((res) => {
+      //console.log(res);
+      if(!res.err){
+          setDb(res)//si no hay error, actualiza con la res de la peticiòn
+      }else{
+          setDb(null);
+          setError(res);
+      }
+      setLoading(false);//después de la peticiòn se regresa a false
+    });
+  }, []);
 
   // Crear nuevo registro en la base de datos
   const createData = (data) => {
@@ -38,7 +58,7 @@ const CrudApi = () => {
 
   return (
     <Fragment>
-      <h2>CRUD APP</h2>
+      <h2>CRUD API</h2>
       <article className="grid-1-2">
         <CrudForm
           createData={createData}
@@ -46,10 +66,17 @@ const CrudApi = () => {
           dataToEdit={dataToEdit}
           setDataToEdit={setDataToEdit}
         />
-        <CrudTable 
-            data={db} 
-            deleteData={deleteData} 
-        />
+        {/* si loading es verdadera carga loader, si no (si hay error), carga Message */}
+        {loading&&<Loader/>}
+        {error && <Message msg={`Error ${error.status}:${error.statusText}`} bgColor="#dc3545"/>} 
+        
+
+        {/* si la base de datos tiene algo, entonces renderiza  CrudTable  */}
+        {db&&(
+            <CrudTable data={db} deleteData={deleteData} />
+        )}
+        
+
       </article>
     </Fragment>
   );
