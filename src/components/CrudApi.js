@@ -7,9 +7,9 @@ import Message from "./Message";
 
 const CrudApi = () => {
   const [db, setDb] = useState(null);
-  const [dataToEdit, setDataToEdit] = useState(null); //cuando está null se va a hacer una inserción, true= actualización   
-  const [error, setError] = useState(null); 
-  const [loading, setLoading]=useState(false);
+  const [dataToEdit, setDataToEdit] = useState(null); //cuando está null se va a hacer una inserción, true= actualización
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   let api = helpHttp();
   let url = "http://localhost:5000/results";
@@ -18,13 +18,13 @@ const CrudApi = () => {
     setLoading(true); //antes de hacer la petición actualiza a true
     api.get(url).then((res) => {
       //console.log(res);
-      if(!res.err){
-          setDb(res)//si no hay error, actualiza con la res de la peticiòn
-      }else{
-          setDb(null);
-          setError(res);
+      if (!res.err) {
+        setDb(res); //si no hay error, actualiza con la res de la peticiòn
+      } else {
+        setDb(null);
+        setError(res);
       }
-      setLoading(false);//después de la peticiòn se regresa a false
+      setLoading(false); //después de la peticiòn se regresa a false
     });
   }, []);
 
@@ -33,6 +33,22 @@ const CrudApi = () => {
     //hay que crear un valor para data.id
     data.id = Date.now();
     // console.log(data) //trae el nuevo elemento
+    let options = { 
+        body: data, 
+        headers:{"content-type":"application/json" }
+    };
+    //
+    api
+      .post(url,options )
+      .then((res) => {
+        console.log(res);
+        //si no hya error, actualiza db con la res que trae la variable
+        if (!res.err) {
+          setDb([...db, res]);
+        } else {
+          setError(res);
+        }
+      });
     setDb([...db, data]);
   };
 
@@ -67,16 +83,16 @@ const CrudApi = () => {
           setDataToEdit={setDataToEdit}
         />
         {/* si loading es verdadera carga loader, si no (si hay error), carga Message */}
-        {loading&&<Loader/>}
-        {error && <Message msg={`Error ${error.status}:${error.statusText}`} bgColor="#dc3545"/>} 
-        
+        {loading && <Loader />}
+        {error && (
+          <Message
+            msg={`Error ${error.status}:${error.statusText}`}
+            bgColor="#dc3545"
+          />
+        )}
 
         {/* si la base de datos tiene algo, entonces renderiza  CrudTable  */}
-        {db&&(
-            <CrudTable data={db} deleteData={deleteData} />
-        )}
-        
-
+        {db && <CrudTable data={db} deleteData={deleteData} />}
       </article>
     </Fragment>
   );
