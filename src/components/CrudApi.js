@@ -54,8 +54,26 @@ const CrudApi = () => {
 
   // Actualiza
   const updateData = (data) => {
-    let newData = db.map((el) => (el.id === data.id ? data : el));
-    setDb(newData);
+    let endpoint = `${url}/${data.id}`; //uniòn de la url+data que viene del form
+    //console.log(endpoint);
+    let options = { 
+        body: data, 
+        headers:{"content-type":"application/json" }
+    };
+    //
+    api
+      .put(endpoint,options )
+      .then((res) => {
+        //console.log(res);
+        //si no hya error, actualiza db con la res que trae la variable
+        if (!res.err) {
+          let newData = db.map((el) => (el.id === data.id ? data : el));
+          setDb(newData);
+        } else {
+          setError(res);
+        }
+      });
+   
   };
 
   // Elimina
@@ -92,7 +110,12 @@ const CrudApi = () => {
         )}
 
         {/* si la base de datos tiene algo, entonces renderiza  CrudTable  */}
-        {db && <CrudTable data={db} deleteData={deleteData} />}
+        {db && 
+            <CrudTable 
+            data={db} 
+            setDataToEdit={setDataToEdit} d
+            eleteData={deleteData}/>
+        }
       </article>
     </Fragment>
   );

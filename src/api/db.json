@@ -8,7 +8,7 @@
     },
     {
       "id": 2,
-      "name": "Rick Sanchez",
+      "name": "Rick Snchez",
       "status": "Alive",
       "species": "Human"
     },
@@ -33,19 +33,38 @@
     {
       "id": 6,
       "name": "Morty Smith",
-      "status": "Alive",
+      "status": "A",
       "species": "Human"
-    },
-    {
-      "id": 7
-    },
-    {
-      "id": 8
     },
     {
       "name": "Summer Smith",
       "status": "Alive",
       "id": 1632228915464
+    },
+    {
+      "name": "gfdgfdgdf",
+      "status": "fdfdfdf",
+      "id": 1632229575377
+    },
+    {
+      "name": "Summer Smith",
+      "status": "alive",
+      "id": 1632229633876
+    },
+    {
+      "name": "Summer Smith",
+      "status": "Alive",
+      "id": 1632230769907
+    },
+    {
+      "name": "Summer Smith",
+      "status": "ssds",
+      "id": 1632230866674
+    },
+    {
+      "name": "dsa",
+      "status": "sadsadsa",
+      "id": 1632238018732
     }
   ]
 }

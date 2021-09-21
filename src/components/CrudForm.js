@@ -1,5 +1,5 @@
 
-import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react';
 
 const initialForm ={
     name:"",
@@ -9,7 +9,17 @@ const initialForm ={
 
 
 const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
- const[form, setForm]=useState(initialForm)
+  const[form, setForm]=useState(initialForm);
+  
+  //form recibe dataToEdit
+  //el efecto evalua el cambiola prop dataToEdit
+  useEffect(()=>{
+    if(dataToEdit){
+      setForm(dataToEdit);
+    }else{
+      setForm(initialForm)
+    }
+  },[dataToEdit])
 
   const handleChange = (e) => {
     setForm({
@@ -26,8 +36,10 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
     return;
     }
     if(form.id === null){
+      //cuando es nulo se crea la dada
       createData(form)
     }else{
+      //cuando no es nulo, se actualiza
       updateData(form)
     }
     handleReset();
@@ -40,7 +52,8 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
 
   return (
     <div>
-      <h3>Agregar</h3>
+      {/* Si dataToEdit trae algo?Editar:Agrgar */}
+      <h3>{dataToEdit?"Editar":"Agregar"}</h3>
       <form onSubmit={handleSumbit}>
         <input
           type="text"
