@@ -69,6 +69,7 @@ const CrudForm = ({createData, updateData, dataToEdit, setDataToEdit}) => {
           onChange={handleChange}
           value={form.status}
         />
+      
         <input type="submit" value="Enviar"/>
         <input type="reset" value="Limpiar" onClick={handleReset}  />
       </form>
