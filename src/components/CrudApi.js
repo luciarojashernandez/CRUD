@@ -67,6 +67,8 @@ const CrudApi = () => {
         //console.log(res);
         //si no hya error, actualiza db con la res que trae la variable
         if (!res.err) {
+            //por cada el, si el id es === a lo que recibo como dato en la posición id
+            //entoonces remplaza data:manten el elemento
           let newData = db.map((el) => (el.id === data.id ? data : el));
           setDb(newData);
         } else {
@@ -83,6 +85,13 @@ const CrudApi = () => {
     );
 
     if (isDelete) {
+      let endpoint = `${url}/${id}`; //uniòn de la url+data que viene del form
+      let options = { 
+        headers:{"content-type":"application/json" }
+    };
+      api.del(endpoint, options)
+        //filtrar y quitar el registro con el id
+        //trae un nuevo arreglo con el id diferente al que se está danado
       let newData = db.filter((el) => el.id !== id);
       setDb(newData);
     } else {
@@ -113,8 +122,8 @@ const CrudApi = () => {
         {db && 
             <CrudTable 
             data={db} 
-            setDataToEdit={setDataToEdit} d
-            eleteData={deleteData}/>
+            setDataToEdit={setDataToEdit} 
+            deleteData={deleteData}/>
         }
       </article>
     </Fragment>

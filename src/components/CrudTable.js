@@ -10,7 +10,7 @@ const CrudTable = ({data, setDataToEdit, deleteData}) => {
           <tr>
             <th>Nombre</th>
             <th>Estatus</th>
-            <th>Especie</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -18,13 +18,20 @@ const CrudTable = ({data, setDataToEdit, deleteData}) => {
             con el atributo para celdas "colSapan"
             si no, haz un map de data 
             donde por cada elemento renderiza el componente CrudTablerOW */}
-          {data.length===0?(
+          {data.length>0?(
+            data.map(el =>( 
+            <CrudTableRow 
+            key={el.id} 
+            el={el} 
+            setDataToEdit={setDataToEdit} 
+            deleteData={deleteData} 
+            />
+            ))
+            ) : (
             <tr>
               <td colSpan="3">Sin datos</td>
             </tr>
-          ) : (
-            data.map(el => <CrudTableRow key={el.id} el={el} setDataToEdit={setDataToEdit} deleteData={deleteData} />)
-          )}
+            )}
         </tbody>
       </table>
     </div>

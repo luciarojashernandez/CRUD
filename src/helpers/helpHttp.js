@@ -15,7 +15,7 @@ export const helpHttp = () => {
       accept: "applicatios/json",
     };
     //cuando fecth detecta que no hay respuesta del servidor
-    //const controller = new AbortController();
+    const controller = new AbortController();
     //del objeto de las options (petivciocnes fetch), agregar signal para agregar el objeto controller
     //options.signal = controller.signal;
     //si el usuario no especifico ningun método, por default es get
@@ -32,7 +32,7 @@ export const helpHttp = () => {
 
     console.log(options);
     //si después de un segundo no hay respuesta, ejecuta el mètodo abort
-    //setTimeout(() => controller.abort(), 3000);
+    setTimeout(() => controller.abort(), 3000);
 
     return (
       fetch(endpoint, options)
